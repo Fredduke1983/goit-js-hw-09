@@ -2,6 +2,11 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
 const startBtn = document.querySelector('[data-start]');
+let days = document.querySelector('[data-days]');
+let hours = document.querySelector('[data-hours]');
+let minutes = document.querySelector('[data-minutes]');
+let seconds = document.querySelector('[data-seconds]');
+
 let chosenDate = null;
 let intervalId = null;
 
@@ -27,7 +32,12 @@ flatpickr('#datetime-picker', options);
 
 function leftTimes() {
   const currentDate = new Date();
-  console.log(convertMs(chosenDate - currentDate));
+
+  const leftMs = chosenDate - currentDate;
+  days.innerHTML = convertMs(leftMs).days;
+  hours.innerHTML = convertMs(leftMs).hours;
+  minutes.innerHTML = convertMs(leftMs).minutes;
+  seconds.innerHTML = convertMs(leftMs).seconds;
 }
 startBtn.addEventListener('click', intervalTimes);
 
