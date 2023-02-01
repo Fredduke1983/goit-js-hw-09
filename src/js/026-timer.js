@@ -1,5 +1,14 @@
 import flatpickr from 'flatpickr';
+import Notiflix from 'notiflix';
 import 'flatpickr/dist/flatpickr.min.css';
+
+Notiflix.Notify.init({
+  width: '300px',
+  position: 'right-bottom',
+  cssAnimationStyle: 'from-right',
+  distance: '20px',
+  opacity: 1,
+});
 
 const startBtn = document.querySelector('[data-start]');
 let days = document.querySelector('[data-days]');
@@ -18,12 +27,19 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    chosenDate = Number(selectedDates[0]);
+    chosenDate = selectedDates[0].getTime();
     const currentDateInOptions = new Date();
 
-    chosenDate - currentDateInOptions < 0
-      ? (startBtn.disabled = true)
-      : (startBtn.disabled = false);
+    if (chosenDate - currentDateInOptions <= 0) {
+      startBtn.disabled = true;
+      Notiflix.Notify.failure('Please choose a date in the future');
+    } else {
+      startBtn.disabled = false;
+      Notiflix.Notify.success(
+        "Good point!!! Let's begin. Push the START - button"
+      );
+    }
+
     clearInterval(intervalId);
   },
 };
@@ -31,18 +47,24 @@ const options = {
 flatpickr('#datetime-picker', options);
 
 function leftTimes() {
-  const currentDate = new Date();
-
+  const currentDate = new Date().getTime();
   const leftMs = chosenDate - currentDate;
-  days.innerHTML = String(convertMs(leftMs).days).padStart(2, 0);
-  hours.innerHTML = String(convertMs(leftMs).hours).padStart(2, 0);
-  minutes.innerHTML = String(convertMs(leftMs).minutes).padStart(2, 0);
-  seconds.innerHTML = String(convertMs(leftMs).seconds).padStart(2, 0);
-  if (leftMs <= 1) {
+
+  if (leftMs > 0) {
+    days.innerHTML = addLeadingZero(convertMs(leftMs).days);
+    hours.innerHTML = addLeadingZero(convertMs(leftMs).hours);
+    minutes.innerHTML = addLeadingZero(convertMs(leftMs).minutes);
+    seconds.innerHTML = addLeadingZero(convertMs(leftMs).seconds);
+  } else {
+    Notiflix.Notify.info('Time is off');
     clearInterval(intervalId);
   }
 }
 startBtn.addEventListener('click', intervalTimes);
+
+function addLeadingZero(value) {
+  return String(value).padStart(2, 0);
+}
 
 function intervalTimes() {
   intervalId = setInterval(leftTimes, 1000);
