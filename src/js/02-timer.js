@@ -34,10 +34,13 @@ function leftTimes() {
   const currentDate = new Date();
 
   const leftMs = chosenDate - currentDate;
-  days.innerHTML = convertMs(leftMs).days;
-  hours.innerHTML = convertMs(leftMs).hours;
-  minutes.innerHTML = convertMs(leftMs).minutes;
-  seconds.innerHTML = convertMs(leftMs).seconds;
+  days.innerHTML = String(convertMs(leftMs).days).padStart(2, 0);
+  hours.innerHTML = String(convertMs(leftMs).hours).padStart(2, 0);
+  minutes.innerHTML = String(convertMs(leftMs).minutes).padStart(2, 0);
+  seconds.innerHTML = String(convertMs(leftMs).seconds).padStart(2, 0);
+  if (leftMs <= 1) {
+    clearInterval(intervalId);
+  }
 }
 startBtn.addEventListener('click', intervalTimes);
 
