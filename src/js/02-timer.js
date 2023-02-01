@@ -7,7 +7,7 @@ let hours = document.querySelector('[data-hours]');
 let minutes = document.querySelector('[data-minutes]');
 let seconds = document.querySelector('[data-seconds]');
 
-let chosenDate;
+let chosenDate = null;
 let intervalId = null;
 
 startBtn.disabled = true;
