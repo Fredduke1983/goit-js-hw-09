@@ -27,5 +27,5 @@ function createPromise(position, delay) {
 }
 
 submitBtn.addEventListener('click', () => {
-  for (let i = 0; i < amount.value; i++) createPromise(1, 2);
+  for (let i = 0; i < amount.value; i++) createPromise(i, delay.value);
 });
