@@ -16,16 +16,19 @@ const submitBtn = document.querySelector('[type=submit]');
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   const promise = new Promise((res, rej) => {
-    if (shouldResolve) {
-      Notiflix.Notify.success('res');
-      // Fulfill
-    } else {
-      Notiflix.Notify.success('rej');
-      // Reject
-    }
+    setTimeout(() => {
+      if (shouldResolve) {
+        Notiflix.Notify.success('res');
+        // Fulfill
+      } else {
+        Notiflix.Notify.success('rej');
+        // Reject
+      }
+    }, 2000);
   });
 }
 
-submitBtn.addEventListener('click', () => {
+submitBtn.addEventListener('click', e => {
+  e.preventDefault();
   for (let i = 0; i < amount.value; i++) createPromise(i, delay.value);
 });
