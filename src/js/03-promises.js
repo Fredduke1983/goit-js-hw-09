@@ -15,9 +15,8 @@ const submitBtn = document.querySelector('[type=submit]');
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  const promise = new Promise((res, rej) => {
+  new Promise((res, rej) => {
     setTimeout(() => {
-      console.log('delay in promise  ===', delay);
       if (shouldResolve) {
         Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`
