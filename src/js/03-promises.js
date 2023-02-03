@@ -19,12 +19,13 @@ function createPromise(position, delay) {
     setTimeout(() => {
       console.log('delay in promise  ===', delay);
       if (shouldResolve) {
-        Notiflix.Notify.success('res');
-
-        // Fulfill
+        Notiflix.Notify.success(
+          `✅ Fulfilled promise ${position} in ${delay}ms`
+        );
       } else {
-        Notiflix.Notify.failure('rej');
-        // Reject
+        Notiflix.Notify.failure(
+          `❌ Rejected promise ${position} in ${delay}ms`
+        );
       }
     }, delay);
   });
@@ -35,9 +36,7 @@ submitBtn.addEventListener('click', onSubmit);
 function onSubmit(e) {
   e.preventDefault();
   let stepDelay = delay.value;
-  for (let i = 0; i < amount.value; i++) {
-    console.log('stepdelay in sub ===', stepDelay);
-    console.log('step in sub ===', step.value);
+  for (let i = 1; i <= amount.value; i++) {
     createPromise(i, stepDelay);
     stepDelay = Number(stepDelay) + Number(step.value);
   }
