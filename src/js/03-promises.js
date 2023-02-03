@@ -30,15 +30,14 @@ function createPromise(position, delay) {
 }
 
 submitBtn.addEventListener('click', onSubmit);
-let stepDelay = delay.value;
 
 function onSubmit(e) {
   e.preventDefault();
-  console.log('delay in sub ===', delay.value);
-  console.log('step in sub ===', step.value);
+  let stepDelay = delay.value;
   for (let i = 0; i < amount.value; i++) {
-    stepDelay = Number(stepDelay) + Number(step.value);
-    console.log('stepDelay ===', stepDelay);
+    console.log('stepdelay in sub ===', stepDelay);
+    console.log('step in sub ===', step.value);
     createPromise(i, stepDelay);
+    stepDelay = Number(stepDelay) + Number(step.value);
   }
 }
