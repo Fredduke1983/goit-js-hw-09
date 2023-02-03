@@ -17,15 +17,16 @@ function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   const promise = new Promise((res, rej) => {
     setTimeout(() => {
+      console.log('delay in promise  ===', delay);
       if (shouldResolve) {
         Notiflix.Notify.success('res');
-        console.log('delay in promise  ===', delay);
+
         // Fulfill
       } else {
         Notiflix.Notify.failure('rej');
         // Reject
       }
-    }, Number(delay));
+    }, delay);
   });
 }
 
