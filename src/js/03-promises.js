@@ -15,19 +15,22 @@ const submitBtn = document.querySelector('[type=submit]');
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  new Promise((res, rej) => {
+  const promise = new Promise((res, rej) => {
     setTimeout(() => {
       if (shouldResolve) {
-        Notiflix.Notify.success(
-          `✅ Fulfilled promise ${position} in ${delay}ms`
-        );
+        res(console.log('DONE'));
       } else {
-        Notiflix.Notify.failure(
-          `❌ Rejected promise ${position} in ${delay}ms`
-        );
+        rej(console.log('ERROR'));
       }
     }, delay);
   });
+
+  promise.then(
+    res =>
+      Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`),
+    rej =>
+      Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`)
+  );
 }
 
 submitBtn.addEventListener('click', onSubmit);
